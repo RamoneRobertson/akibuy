@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bid_amount: 1
+  bid_status: 1
+  auction: one
+  user: one
+
+two:
+  bid_amount: 1
+  bid_status: 1
+  auction: two
+  user: two
