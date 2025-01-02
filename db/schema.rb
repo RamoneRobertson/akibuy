@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_02_125721) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_02_125829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,6 +39,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_02_125721) do
     t.index ["user_id"], name: "index_auctions_on_user_id"
   end
 
+  create_table "bids", force: :cascade do |t|
+    t.integer "bid_amount"
+    t.integer "bid_status"
+    t.bigint "auction_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auction_id"], name: "index_bids_on_auction_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -53,4 +64,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_02_125721) do
 
   add_foreign_key "auction_items", "auctions"
   add_foreign_key "auctions", "users"
+  add_foreign_key "bids", "auctions"
+  add_foreign_key "bids", "users"
 end
