@@ -1,7 +1,7 @@
 # Clear Database
 Bid.destroy_all
 Transaction.destroy_all
-AuctionItem.destroy_all
+Item.destroy_all
 Auction.destroy_all
 User.destroy_all
 
@@ -54,7 +54,7 @@ auction2 = Auction.create!(
 puts "Auctions created successfully!"
 
 # Create Auction Items for Auctions
-AuctionItem.create!(
+item1 = Item.create!(
   name: 'Vintage Wooden Chair',
   description: 'A sturdy wooden chair with a classic design.',
   start_price: 2000,
@@ -64,7 +64,7 @@ AuctionItem.create!(
   auction_id: auction1.id
 )
 
-AuctionItem.create!(
+item2 = Item.create!(
   name: 'Porcelain Tea Set',
   description: 'Delicate porcelain tea set with floral patterns.',
   start_price: 3500,
@@ -74,7 +74,7 @@ AuctionItem.create!(
   auction_id: auction1.id
 )
 
-AuctionItem.create!(
+item3 = Item.create!(
   name: 'Rustic Gardening Tools',
   description: 'A collection of gardening tools including a rake and pruning shears.',
   start_price: 1500,
@@ -84,12 +84,11 @@ AuctionItem.create!(
   auction_id: auction2.id
 )
 
-AuctionItem.create!(
+item4 = Item.create!(
   name: 'Vintage Toolbox',
   description: 'Metal toolbox filled with old tools.',
   start_price: 2500,
   category: 'Tools',
-  image: 'https://via.placeholder.com/150x150.png?text=Toolbox',
   bidding_status: 0,
   auction_id: auction2.id
 )
@@ -100,14 +99,14 @@ puts "Auction items created successfully!"
 Bid.create!(
   bid_amount: 2200,
   bid_status: 1, # Active bid
-  auction_item_id: auction1.id,
+  item_id: item3.id,
   user_id: buyer1.id
 )
 
 Bid.create!(
   bid_amount: 1800,
   bid_status: 1, # Active bid
-  auction_item_id: auction2.id,
+  item_id: item1.id,
   user_id: buyer2.id
 )
 
