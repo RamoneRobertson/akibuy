@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :bids
-  has_many :auctions
-  has_many :transactions
+  has_many :products
+  has_many :purchases
+  has_many :comments
+
+  validates :password, length: { minimum: 8 }
 end
