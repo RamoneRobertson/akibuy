@@ -1,17 +1,22 @@
 class Api::V1::ProductsController < ApplicationController
   def index
     @products = Product.all
-
     render json: @products.order(created_at: :desc)
   end
 
   def show
     @product = Product.find(params[:id])
-
     render json: @product
   end
 
-  def new
+  def create
+    @product = Product.new(product_params)
+
+    if @product.save
+      render json: @product, status: :created
+    else
+      render json: { error: @product.errors.messages }, status: :unprocessable_entity
+    end
   end
 
   private
