@@ -1,8 +1,7 @@
 # Clear Database
-Bid.destroy_all
-Transaction.destroy_all
-Item.destroy_all
-Auction.destroy_all
+Purchase.destroy_all
+Comment.destroy_all
+Product.destroy_all
 User.destroy_all
 
 
@@ -26,88 +25,130 @@ emails.each do |email|
   users << user
 end
 
-# Assigning Users
-buyer1 = users[0]
-buyer2 = users[1]
-seller1 = users[2]
-seller2 = users[3]
+# Create products
+products = [
+  {
+    name: "Vintage Kokeshi Doll Set",
+    image: "kokeshi_dolls.jpg",
+    categories: "Collectibles",
+    condition: "Good",
+    description: "A set of hand-painted traditional Kokeshi dolls, originating from the Tohoku region.",
+    shipping_method: "Standard Shipping",
+    region_of_origin: "Miyagi Prefecture",
+    sales_price: 4500.0,
+    delivery_time: DateTime.now + 7.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Antique Tea Set",
+    image: "antique_tea_set.jpg",
+    categories: "Kitchenware",
+    condition: "Fair",
+    description: "A porcelain tea set featuring intricate sakura patterns. Some minor chips on a few cups.",
+    shipping_method: "Express Shipping",
+    region_of_origin: "Kyoto",
+    sales_price: 12000.0,
+    delivery_time: DateTime.now + 5.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Hand-Carved Wooden Daruma",
+    image: "wooden_daruma.jpg",
+    categories: "Decor",
+    condition: "Excellent",
+    description: "A rare hand-carved wooden Daruma with vibrant red paint. Represents perseverance and good luck.",
+    shipping_method: "Standard Shipping",
+    region_of_origin: "Nagano Prefecture",
+    sales_price: 8000.0,
+    delivery_time: DateTime.now + 6.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Worn Tatami Mats",
+    image: "tatami_mats.jpg",
+    categories: "Home Improvement",
+    condition: "Poor",
+    description: "A set of 4 tatami mats, showing signs of wear but still functional for restoration or repurposing.",
+    shipping_method: "Local Pickup Only",
+    region_of_origin: "Shizuoka",
+    sales_price: 300.0,
+    delivery_time: DateTime.now + 10.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Vintage Kimono",
+    image: "vintage_kimono.jpg",
+    categories: "Clothing",
+    condition: "Good",
+    description: "A silk kimono with a detailed crane motif. Perfect for collectors or as a unique wardrobe piece.",
+    shipping_method: "Express Shipping",
+    region_of_origin: "Kanazawa",
+    sales_price: 15000.0,
+    delivery_time: DateTime.now + 3.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Old Shoji Screen",
+    image: "shoji_screen.jpg",
+    categories: "Furniture",
+    condition: "Fair",
+    description: "A traditional wooden Shoji screen with torn rice paper. Great for restoration or decoration.",
+    shipping_method: "Standard Shipping",
+    region_of_origin: "Hokkaido",
+    sales_price: 5500.0,
+    delivery_time: DateTime.now + 7.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Rustic Cast Iron Kettle",
+    image: "cast_iron_kettle.jpg",
+    categories: "Kitchenware",
+    condition: "Good",
+    description: "An authentic cast iron kettle (Tetsubin) used for brewing tea. Some rust on the exterior adds to its charm.",
+    shipping_method: "Standard Shipping",
+    region_of_origin: "Iwate Prefecture",
+    sales_price: 9000.0,
+    delivery_time: DateTime.now + 4.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Bamboo Basket Collection",
+    image: "bamboo_baskets.jpg",
+    categories: "Decor",
+    condition: "Good",
+    description: "A collection of handwoven bamboo baskets, suitable for decoration or functional use.",
+    shipping_method: "Standard Shipping",
+    region_of_origin: "Gifu Prefecture",
+    sales_price: 3500.0,
+    delivery_time: DateTime.now + 5.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Antique Wooden Chest (Tansu)",
+    image: "wooden_chest.jpg",
+    categories: "Furniture",
+    condition: "Excellent",
+    description: "A traditional Japanese wooden chest (Tansu) with iron fittings. Well-preserved and highly functional.",
+    shipping_method: "Freight Shipping",
+    region_of_origin: "Osaka",
+    sales_price: 25000.0,
+    delivery_time: DateTime.now + 14.days,
+    user_id: users.sample.id
+  },
+  {
+    name: "Old Ceramic Tiles",
+    image: "ceramic_tiles.jpg",
+    categories: "Building Materials",
+    condition: "Fair",
+    description: "A set of hand-painted ceramic tiles salvaged from the kitchen of an old Akiya. Great for DIY projects.",
+    shipping_method: "Local Pickup Only",
+    region_of_origin: "Okayama",
+    sales_price: 1000.0,
+    delivery_time: DateTime.now + 7.days,
+    user_id: users.sample.id
+  }
+]
 
-# Create Auctions for Sellers
-auction1 = Auction.create!(
-  name: 'Vintage Furniture and Antiques',
-  description: 'Beautiful vintage furniture and collectibles left behind in the akiya.',
-  start_time: Date.today,
-  end_time: Date.today + 7,
-  image: 'https://via.placeholder.com/300x300.png?text=Furniture+Antiques',
-  user_id: seller1.id
-)
-
-auction2 = Auction.create!(
-  name: 'Old Tools and Gardening Equipment',
-  description: 'A variety of tools and equipment found in the shed of the akiya.',
-  start_time: Date.today,
-  end_time: Date.today + 5,
-  image: 'https://via.placeholder.com/300x300.png?text=Tools+Equipment',
-  user_id: seller2.id
-)
-
-puts "Auctions created successfully!"
-
-# Create Auction Items for Auctions
-item1 = Item.create!(
-  name: 'Vintage Wooden Chair',
-  description: 'A sturdy wooden chair with a classic design.',
-  start_price: 2000,
-  category: 'Furniture',
-  image: 'https://via.placeholder.com/150x150.png?text=Wooden+Chair',
-  bidding_status: 0,
-  auction_id: auction1.id
-)
-
-item2 = Item.create!(
-  name: 'Porcelain Tea Set',
-  description: 'Delicate porcelain tea set with floral patterns.',
-  start_price: 3500,
-  category: 'Antiques',
-  image: 'https://via.placeholder.com/150x150.png?text=Tea+Set',
-  bidding_status: 0,
-  auction_id: auction1.id
-)
-
-item3 = Item.create!(
-  name: 'Rustic Gardening Tools',
-  description: 'A collection of gardening tools including a rake and pruning shears.',
-  start_price: 1500,
-  category: 'Tools',
-  image: 'https://via.placeholder.com/150x150.png?text=Gardening+Tools',
-  bidding_status: 0,
-  auction_id: auction2.id
-)
-
-item4 = Item.create!(
-  name: 'Vintage Toolbox',
-  description: 'Metal toolbox filled with old tools.',
-  start_price: 2500,
-  category: 'Tools',
-  bidding_status: 0,
-  auction_id: auction2.id
-)
-
-puts "Auction items created successfully!"
-
-# Bids for Buyers
-Bid.create!(
-  bid_amount: 2200,
-  bid_status: 1, # Active bid
-  item_id: item3.id,
-  user_id: buyer1.id
-)
-
-Bid.create!(
-  bid_amount: 1800,
-  bid_status: 1, # Active bid
-  item_id: item1.id,
-  user_id: buyer2.id
-)
-
-puts "Bids created successfully!"
+products.each do |product|
+  Product.create!(product)
+end
