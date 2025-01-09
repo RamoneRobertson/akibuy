@@ -23,6 +23,7 @@ gem "solid_cable"
 # Manually installed gems
 gem "devise"
 gem "dotenv-rails"
+gem "acts-as-taggable-on"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
