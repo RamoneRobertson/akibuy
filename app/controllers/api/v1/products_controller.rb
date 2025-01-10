@@ -1,10 +1,9 @@
 class Api::V1::ProductsController < ApplicationController
   def index
-    if params[:name]
-      @products = Product.where("name ILIKE ?", "%#{params[:name]}%")
-    else
-      @products = Product.all
-    end
+    @products = Product.where(nil)
+    @products = @products.filter_by_price(params[:sales_price]) if params[:sales_price].present?
+    @products = @products.filter_by_condition(params[:condition]) if params[:condition].present?
+    @products = @products.filter_by_name(params[:name]) if params[:name].present?
 
     render json: @products.order(created_at: :desc)
   end
