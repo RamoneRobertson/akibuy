@@ -8,5 +8,8 @@ class User < ApplicationRecord
   has_many :purchases
   has_many :comments
 
+  has_one :cart
+  has_many :cart_items, through: :carts
+
   validates :password, length: { minimum: 8 }
 end
