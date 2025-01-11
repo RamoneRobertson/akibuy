@@ -25,6 +25,12 @@ emails.each do |email|
   users << user
 end
 
+# Build carts for users
+users.each do |user|
+  cart = Cart.new(user_id: user.id)
+  cart.save!
+end
+
 # Create products
 products = [
   {
