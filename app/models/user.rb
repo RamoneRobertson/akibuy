@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :comments
 
   has_one :cart
-  has_many :cart_items, through: :carts
+  has_many :cart_items, through: :cart
 
   validates :password, length: { minimum: 8 }
 end
